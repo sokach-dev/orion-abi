@@ -51,6 +51,38 @@ message VocabularyQuery {
     optional int64 limit = 10;
 }
 
+// add a new vocabulary
+message AddVocabularyRequest {
+    Vocabulary vocabulary = 1;
+}
+
+message VocabularyResponse {
+    Vocabulary vocabulary = 1;
+}
+
+message QueryVocabularyRequest {
+    VocabularyQuery query = 1;
+}
+
+message QueryVocabularyResponse {
+    repeated Vocabulary vocabulary = 1;
+}
+
+message QueryVocabularyRandomRequest {
+    int64 limit = 1;
+}
+
+// The Vocabulary service definition.
+service VocabularyService {
+    // add a new vocabulary
+    rpc AddVocabulary(AddVocabularyRequest) returns (VocabularyResponse) {}
+    // query vocabulary
+    rpc QueryVocabulary(QueryVocabularyRequest) returns (QueryVocabularyResponse) {}
+    // query random vocabulary
+    rpc QueryVocabularyRandom(QueryVocabularyRandomRequest) returns (QueryVocabularyResponse) {}
+
+}
+
 message Story {
     /// id
     int64 id = 1;
@@ -81,27 +113,6 @@ message StoryQuery {
     optional int64 limit = 6;
 }
 
-// add a new vocabulary
-message AddVocabularyRequest {
-    Vocabulary vocabulary = 1;
-}
-
-message VocabularyResponse {
-    Vocabulary vocabulary = 1;
-}
-
-message QueryVocabularyRequest {
-    VocabularyQuery query = 1;
-}
-
-message QueryVocabularyResponse {
-    repeated Vocabulary vocabulary = 1;
-}
-
-message QueryVocabularyRandomRequest {
-    int64 limit = 1;
-}
-
 message AddStoryRequest {
     Story story = 1;
 }
@@ -114,18 +125,83 @@ message QueryStoryResponse {
     repeated Story story = 1;
 }
 
-// The Vocabulary service definition.
-service VocabularyService {
-    // add a new vocabulary
-    rpc AddVocabulary(AddVocabularyRequest) returns (VocabularyResponse) {}
-    // query vocabulary
-    rpc QueryVocabulary(QueryVocabularyRequest) returns (QueryVocabularyResponse) {}
-    // query random vocabulary
-    rpc QueryVocabularyRandom(QueryVocabularyRandomRequest) returns (QueryVocabularyResponse) {}
-
-}
-
 service StoryService {
     // add a new story
     rpc AddStory(AddStoryRequest) returns (StoryResponse) {}
+}
+
+enum LearnStatus {
+    LEARN_STATUS_NEW = 0;
+    LEARN_STATUS_EASY = 1;
+    LEARN_STATUS_DIFFICULT = 2;
+    LEARN_STATUS_LEARNED = 3;
+}
+
+message LearnWord {
+    /// id
+    int64 id = 1;
+    /// word
+    string word = 2;
+    /// vocabulary id
+    int64 vocabulary_id = 3;
+    /// word list id
+    int64 word_list_id = 4;
+    /// learn count
+    int64 learn_count = 5;
+    /// learn status
+    LearnStatus learn_status = 6;
+    /// last learned at
+    google.protobuf.Timestamp last_learned_at = 7;
+    /// next learn at
+    google.protobuf.Timestamp next_learn_at = 8;
+    /// created at
+    google.protobuf.Timestamp created_at = 9;
+    /// updated at
+    google.protobuf.Timestamp updated_at = 10;
+}
+
+message LearnWordQuery {
+    /// id
+    optional int64 id = 1;
+    /// word
+    optional string word = 2;
+    /// vocabulary id
+    optional int64 vocabulary_id = 3;
+    /// word list id
+    optional int64 word_list_id = 4;
+    /// learn count
+    optional int64 learn_count = 5;
+    /// learn status
+    optional LearnStatus learn_status = 6;
+    /// last learned at
+    google.protobuf.Timestamp last_learned_at = 7;
+    /// next learn at
+    google.protobuf.Timestamp next_learn_at = 8;
+    /// offset
+    optional int64 offset = 9;
+    /// limit
+    optional int64 limit = 10;
+}
+
+message AddLearnWordRequest {
+    LearnWord word = 1;
+}
+
+message LearnWordResponse {
+    LearnWord word = 1;
+}
+
+message QueryLearnWordRequest {
+    LearnWordQuery query = 1;
+}
+
+message QueryLearnWordResponse {
+    repeated LearnWord word = 1;
+}
+
+service LearnWordService {
+    // add a new learn word
+    rpc AddLearnWord(AddLearnWordRequest) returns (LearnWordResponse) {}
+    // query learn word
+    rpc QueryLearnWord(QueryLearnWordRequest) returns (QueryLearnWordResponse) {}
 }

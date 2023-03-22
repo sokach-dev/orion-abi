@@ -68,6 +68,37 @@ pub struct VocabularyQuery {
     #[prost(int64, optional, tag = "10")]
     pub limit: ::core::option::Option<i64>,
 }
+/// add a new vocabulary
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddVocabularyRequest {
+    #[prost(message, optional, tag = "1")]
+    pub vocabulary: ::core::option::Option<Vocabulary>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct VocabularyResponse {
+    #[prost(message, optional, tag = "1")]
+    pub vocabulary: ::core::option::Option<Vocabulary>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryVocabularyRequest {
+    #[prost(message, optional, tag = "1")]
+    pub query: ::core::option::Option<VocabularyQuery>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryVocabularyResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub vocabulary: ::prost::alloc::vec::Vec<Vocabulary>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryVocabularyRandomRequest {
+    #[prost(int64, tag = "1")]
+    pub limit: i64,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Story {
@@ -112,37 +143,6 @@ pub struct StoryQuery {
     #[prost(int64, optional, tag = "6")]
     pub limit: ::core::option::Option<i64>,
 }
-/// add a new vocabulary
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddVocabularyRequest {
-    #[prost(message, optional, tag = "1")]
-    pub vocabulary: ::core::option::Option<Vocabulary>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VocabularyResponse {
-    #[prost(message, optional, tag = "1")]
-    pub vocabulary: ::core::option::Option<Vocabulary>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryVocabularyRequest {
-    #[prost(message, optional, tag = "1")]
-    pub query: ::core::option::Option<VocabularyQuery>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryVocabularyResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub vocabulary: ::prost::alloc::vec::Vec<Vocabulary>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryVocabularyRandomRequest {
-    #[prost(int64, tag = "1")]
-    pub limit: i64,
-}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddStoryRequest {
@@ -160,6 +160,130 @@ pub struct StoryResponse {
 pub struct QueryStoryResponse {
     #[prost(message, repeated, tag = "1")]
     pub story: ::prost::alloc::vec::Vec<Story>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LearnWord {
+    /// / id
+    #[prost(int64, tag = "1")]
+    pub id: i64,
+    /// / word
+    #[prost(string, tag = "2")]
+    pub word: ::prost::alloc::string::String,
+    /// / vocabulary id
+    #[prost(int64, tag = "3")]
+    pub vocabulary_id: i64,
+    /// / word list id
+    #[prost(int64, tag = "4")]
+    pub word_list_id: i64,
+    /// / learn count
+    #[prost(int64, tag = "5")]
+    pub learn_count: i64,
+    /// / learn status
+    #[prost(enumeration = "LearnStatus", tag = "6")]
+    pub learn_status: i32,
+    /// / last learned at
+    #[prost(message, optional, tag = "7")]
+    pub last_learned_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / next learn at
+    #[prost(message, optional, tag = "8")]
+    pub next_learn_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / created at
+    #[prost(message, optional, tag = "9")]
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / updated at
+    #[prost(message, optional, tag = "10")]
+    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LearnWordQuery {
+    /// / id
+    #[prost(int64, optional, tag = "1")]
+    pub id: ::core::option::Option<i64>,
+    /// / word
+    #[prost(string, optional, tag = "2")]
+    pub word: ::core::option::Option<::prost::alloc::string::String>,
+    /// / vocabulary id
+    #[prost(int64, optional, tag = "3")]
+    pub vocabulary_id: ::core::option::Option<i64>,
+    /// / word list id
+    #[prost(int64, optional, tag = "4")]
+    pub word_list_id: ::core::option::Option<i64>,
+    /// / learn count
+    #[prost(int64, optional, tag = "5")]
+    pub learn_count: ::core::option::Option<i64>,
+    /// / learn status
+    #[prost(enumeration = "LearnStatus", optional, tag = "6")]
+    pub learn_status: ::core::option::Option<i32>,
+    /// / last learned at
+    #[prost(message, optional, tag = "7")]
+    pub last_learned_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / next learn at
+    #[prost(message, optional, tag = "8")]
+    pub next_learn_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / offset
+    #[prost(int64, optional, tag = "9")]
+    pub offset: ::core::option::Option<i64>,
+    /// / limit
+    #[prost(int64, optional, tag = "10")]
+    pub limit: ::core::option::Option<i64>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddLearnWordRequest {
+    #[prost(message, optional, tag = "1")]
+    pub word: ::core::option::Option<LearnWord>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LearnWordResponse {
+    #[prost(message, optional, tag = "1")]
+    pub word: ::core::option::Option<LearnWord>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryLearnWordRequest {
+    #[prost(message, optional, tag = "1")]
+    pub query: ::core::option::Option<LearnWordQuery>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryLearnWordResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub word: ::prost::alloc::vec::Vec<LearnWord>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum LearnStatus {
+    New = 0,
+    Easy = 1,
+    Difficult = 2,
+    Learned = 3,
+}
+impl LearnStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            LearnStatus::New => "LEARN_STATUS_NEW",
+            LearnStatus::Easy => "LEARN_STATUS_EASY",
+            LearnStatus::Difficult => "LEARN_STATUS_DIFFICULT",
+            LearnStatus::Learned => "LEARN_STATUS_LEARNED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "LEARN_STATUS_NEW" => Some(Self::New),
+            "LEARN_STATUS_EASY" => Some(Self::Easy),
+            "LEARN_STATUS_DIFFICULT" => Some(Self::Difficult),
+            "LEARN_STATUS_LEARNED" => Some(Self::Learned),
+            _ => None,
+        }
+    }
 }
 /// Generated client implementations.
 pub mod vocabulary_service_client {
@@ -362,6 +486,107 @@ pub mod story_service_client {
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/orion.StoryService/AddStory");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
+    }
+}
+/// Generated client implementations.
+pub mod learn_word_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::http::Uri;
+    use tonic::codegen::*;
+    #[derive(Debug, Clone)]
+    pub struct LearnWordServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl LearnWordServiceClient<tonic::transport::Channel> {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> LearnWordServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> LearnWordServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
+                Into<StdError> + Send + Sync,
+        {
+            LearnWordServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// add a new learn word
+        pub async fn add_learn_word(
+            &mut self,
+            request: impl tonic::IntoRequest<super::AddLearnWordRequest>,
+        ) -> Result<tonic::Response<super::LearnWordResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/orion.LearnWordService/AddLearnWord");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
+        /// query learn word
+        pub async fn query_learn_word(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryLearnWordRequest>,
+        ) -> Result<tonic::Response<super::QueryLearnWordResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/orion.LearnWordService/QueryLearnWord");
             self.inner.unary(request.into_request(), path, codec).await
         }
     }
@@ -711,5 +936,179 @@ pub mod story_service_server {
     }
     impl<T: StoryService> tonic::server::NamedService for StoryServiceServer<T> {
         const NAME: &'static str = "orion.StoryService";
+    }
+}
+/// Generated server implementations.
+pub mod learn_word_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LearnWordServiceServer.
+    #[async_trait]
+    pub trait LearnWordService: Send + Sync + 'static {
+        /// add a new learn word
+        async fn add_learn_word(
+            &self,
+            request: tonic::Request<super::AddLearnWordRequest>,
+        ) -> Result<tonic::Response<super::LearnWordResponse>, tonic::Status>;
+        /// query learn word
+        async fn query_learn_word(
+            &self,
+            request: tonic::Request<super::QueryLearnWordRequest>,
+        ) -> Result<tonic::Response<super::QueryLearnWordResponse>, tonic::Status>;
+    }
+    #[derive(Debug)]
+    pub struct LearnWordServiceServer<T: LearnWordService> {
+        inner: _Inner<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+    }
+    struct _Inner<T>(Arc<T>);
+    impl<T: LearnWordService> LearnWordServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            let inner = _Inner(inner);
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+            }
+        }
+        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for LearnWordServiceServer<T>
+    where
+        T: LearnWordService,
+        B: Body + Send + 'static,
+        B::Error: Into<StdError> + Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            let inner = self.inner.clone();
+            match req.uri().path() {
+                "/orion.LearnWordService/AddLearnWord" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddLearnWordSvc<T: LearnWordService>(pub Arc<T>);
+                    impl<T: LearnWordService>
+                        tonic::server::UnaryService<super::AddLearnWordRequest>
+                        for AddLearnWordSvc<T>
+                    {
+                        type Response = super::LearnWordResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddLearnWordRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).add_learn_word(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddLearnWordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/orion.LearnWordService/QueryLearnWord" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryLearnWordSvc<T: LearnWordService>(pub Arc<T>);
+                    impl<T: LearnWordService>
+                        tonic::server::UnaryService<super::QueryLearnWordRequest>
+                        for QueryLearnWordSvc<T>
+                    {
+                        type Response = super::QueryLearnWordResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryLearnWordRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).query_learn_word(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = QueryLearnWordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => Box::pin(async move {
+                    Ok(http::Response::builder()
+                        .status(200)
+                        .header("grpc-status", "12")
+                        .header("content-type", "application/grpc")
+                        .body(empty_body())
+                        .unwrap())
+                }),
+            }
+        }
+    }
+    impl<T: LearnWordService> Clone for LearnWordServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+            }
+        }
+    }
+    impl<T: LearnWordService> Clone for _Inner<T> {
+        fn clone(&self) -> Self {
+            Self(self.0.clone())
+        }
+    }
+    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "{:?}", self.0)
+        }
+    }
+    impl<T: LearnWordService> tonic::server::NamedService for LearnWordServiceServer<T> {
+        const NAME: &'static str = "orion.LearnWordService";
     }
 }
