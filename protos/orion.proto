@@ -231,3 +231,41 @@ message WordList {
     /// updated at
     google.protobuf.Timestamp updated_at = 6;
 }
+
+message WordListQuery {
+    /// id
+    optional int64 id = 1;
+    /// name
+    optional string word = 2;
+    /// paraphrase
+    optional string paraphrase = 3;
+    /// word classification
+    optional WordClassification classification = 4;
+    /// offset
+    optional int64 offset = 5;
+    /// limit
+    optional int64 limit = 6;
+}
+
+message AddWordListRequest {
+    WordList word = 1;
+}
+
+message WordListResponse {
+    WordList word = 1;
+}
+
+message QueryWordListRequest {
+    WordListQuery query = 1;
+}
+
+message QueryWordListResponse {
+    repeated WordList word = 1;
+}
+
+service WordListService {
+    // add a new word list
+    rpc AddWordList(AddWordListRequest) returns (WordListResponse) {}
+    // query word list
+    rpc QueryWordList(QueryWordListRequest) returns (QueryWordListResponse) {}
+}

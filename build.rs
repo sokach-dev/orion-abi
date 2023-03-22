@@ -18,6 +18,11 @@ fn main() {
             "#[derive(to_sql_condition::ToSqlCondition, derive_builder::Builder)]",
         )
         .type_attribute("orion.StoryQuery", "#[builder(setter(into), default)]")
+        .type_attribute(
+            "orion.WordListQuery",
+            "#[derive(to_sql_condition::ToSqlCondition, derive_builder::Builder)]",
+        )
+        .type_attribute("orion.WordListQuery", "#[builder(setter(into), default)]")
         .compile(&["protos/orion.proto"], &["protos"])
         .unwrap();
 
