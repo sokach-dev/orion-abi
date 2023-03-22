@@ -1,1 +1,1 @@
-mod enum_type;
+pub mod enum_type;
