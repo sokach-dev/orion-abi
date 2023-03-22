@@ -34,7 +34,7 @@ impl fmt::Display for LearnStatus {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, sqlx::Type)]
-#[sqlx(type_name = "classification")]
+#[sqlx(type_name = "word_classification")] // word_classification是数据库中的类型名称
 pub enum OrionWordClassification {
     #[sqlx(rename = "CET-4")]
     CET4,
