@@ -66,7 +66,7 @@ impl FromRow<'_, PgRow> for pb::WordList {
         Ok(Self {
             id: row.get("id"),
             word: row.get("word"),
-            paraphrase: row.get("pharaphrase"),
+            paraphrase: row.get("paraphrase"),
             classification: WordClassification::from(class) as i32,
             created_at: Some(convert_to_timestamp(&created_at)),
             updated_at: Some(convert_to_timestamp(&updated_at)),

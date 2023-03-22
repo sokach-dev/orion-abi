@@ -3,7 +3,7 @@ use core::fmt;
 use crate::{LearnStatus, WordClassification};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, sqlx::Type)]
-#[sqlx(type_name = "learn_status", rename_all = "lowercase")]
+#[sqlx(type_name = "word_status", rename_all = "lowercase")]
 pub enum OrionLearnStatus {
     New,
     Easy,
