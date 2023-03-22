@@ -28,3 +28,57 @@ impl FromRow<'_, PgRow> for pb::Vocabulary {
         })
     }
 }
+
+impl FromRow<'_, PgRow> for pb::LearnWord {
+    fn from_row(row: &PgRow) -> Result<Self, sqlx::Error> {
+        let created_at: chrono::DateTime<chrono::Utc> = row.get("created_at");
+        let updated_at: chrono::DateTime<chrono::Utc> = row.get("updated_at");
+        let last_learned_at: chrono::DateTime<chrono::Utc> = row.get("last_learned_at");
+        let next_learn_at: chrono::DateTime<chrono::Utc> = row.get("next_learn_at");
+
+        Ok(Self {
+            id: row.get("id"),
+            word: row.get("word"),
+            vocabulary_id: row.get("vocabulary_id"),
+            word_list_id: row.get("word_list_id"),
+            learn_count: row.get("learn_count"),
+            learn_status: row.get("learn_status"),
+            last_learned_at: Some(convert_to_timestamp(&last_learned_at)),
+            next_learn_at: Some(convert_to_timestamp(&next_learn_at)),
+            created_at: Some(convert_to_timestamp(&created_at)),
+            updated_at: Some(convert_to_timestamp(&updated_at)),
+        })
+    }
+}
+
+impl FromRow<'_, PgRow> for pb::WordList {
+    fn from_row(row: &PgRow) -> Result<Self, sqlx::Error> {
+        let created_at: chrono::DateTime<chrono::Utc> = row.get("created_at");
+        let updated_at: chrono::DateTime<chrono::Utc> = row.get("updated_at");
+
+        Ok(Self {
+            id: row.get("id"),
+            word: row.get("word"),
+            paraphrase: row.get("pharaphrase"),
+            classification: row.get("classification"),
+            created_at: Some(convert_to_timestamp(&created_at)),
+            updated_at: Some(convert_to_timestamp(&updated_at)),
+        })
+    }
+}
+
+impl FromRow<'_, PgRow> for pb::Story {
+    fn from_row(row: &PgRow) -> Result<Self, sqlx::Error> {
+        let created_at: chrono::DateTime<chrono::Utc> = row.get("created_at");
+        let updated_at: chrono::DateTime<chrono::Utc> = row.get("updated_at");
+
+        Ok(Self {
+            id: row.get("id"),
+            words: row.get("words"),
+            content: row.get("content"),
+            read_count: row.get("read_count"),
+            created_at: Some(convert_to_timestamp(&created_at)),
+            updated_at: Some(convert_to_timestamp(&updated_at)),
+        })
+    }
+}
