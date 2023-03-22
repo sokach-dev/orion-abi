@@ -257,6 +257,28 @@ pub struct QueryLearnWordResponse {
     #[prost(message, repeated, tag = "1")]
     pub word: ::prost::alloc::vec::Vec<LearnWord>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct WordList {
+    /// / id
+    #[prost(int64, tag = "1")]
+    pub id: i64,
+    /// / name
+    #[prost(string, tag = "2")]
+    pub word: ::prost::alloc::string::String,
+    /// / paraphrase
+    #[prost(string, tag = "3")]
+    pub paraphrase: ::prost::alloc::string::String,
+    /// / word classification
+    #[prost(enumeration = "WordClassification", tag = "4")]
+    pub classification: i32,
+    /// / created at
+    #[prost(message, optional, tag = "5")]
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / updated at
+    #[prost(message, optional, tag = "6")]
+    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum LearnStatus {
@@ -285,6 +307,50 @@ impl LearnStatus {
             "LEARN_STATUS_EASY" => Some(Self::Easy),
             "LEARN_STATUS_DIFFICULT" => Some(Self::Difficult),
             "LEARN_STATUS_LEARNED" => Some(Self::Learned),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum WordClassification {
+    Cet4 = 0,
+    Cet6 = 1,
+    Junior = 2,
+    Senior = 3,
+    Graduate = 4,
+    Toefl = 5,
+    Sat = 6,
+    Unkown = 7,
+}
+impl WordClassification {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            WordClassification::Cet4 => "CET4",
+            WordClassification::Cet6 => "CET6",
+            WordClassification::Junior => "JUNIOR",
+            WordClassification::Senior => "SENIOR",
+            WordClassification::Graduate => "GRADUATE",
+            WordClassification::Toefl => "TOEFL",
+            WordClassification::Sat => "SAT",
+            WordClassification::Unkown => "UNKOWN",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "CET4" => Some(Self::Cet4),
+            "CET6" => Some(Self::Cet6),
+            "JUNIOR" => Some(Self::Junior),
+            "SENIOR" => Some(Self::Senior),
+            "GRADUATE" => Some(Self::Graduate),
+            "TOEFL" => Some(Self::Toefl),
+            "SAT" => Some(Self::Sat),
+            "UNKOWN" => Some(Self::Unkown),
             _ => None,
         }
     }
