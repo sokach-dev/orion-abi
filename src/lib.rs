@@ -8,6 +8,7 @@ pub use config::{Config, DbConfig};
 pub use error::Error;
 pub use pb::*;
 use sqlx::{postgres::PgRow, FromRow, Row};
+pub use types::*;
 pub use utils::*;
 
 impl FromRow<'_, PgRow> for pb::Vocabulary {
