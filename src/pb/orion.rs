@@ -121,6 +121,8 @@ pub struct Story {
     #[prost(message, optional, tag = "6")]
     pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
 }
+#[derive(to_sql_condition::ToSqlCondition, derive_builder::Builder)]
+#[builder(setter(into), default)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StoryQuery {
@@ -195,6 +197,8 @@ pub struct LearnWord {
     #[prost(message, optional, tag = "10")]
     pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
 }
+#[derive(to_sql_condition::ToSqlCondition, derive_builder::Builder)]
+#[builder(setter(into), default)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LearnWordQuery {
