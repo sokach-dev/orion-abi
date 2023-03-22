@@ -1,6 +1,7 @@
 mod config;
 mod error;
 mod pb;
+mod types;
 mod utils;
 
 pub use config::{Config, DbConfig};
