@@ -404,16 +404,15 @@ impl WordClassification {
     }
 }
 /// Generated client implementations.
-pub mod vocabulary_service_client {
+pub mod orion_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
-    /// The Vocabulary service definition.
     #[derive(Debug, Clone)]
-    pub struct VocabularyServiceClient<T> {
+    pub struct OrionServiceClient<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl VocabularyServiceClient<tonic::transport::Channel> {
+    impl OrionServiceClient<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -424,7 +423,7 @@ pub mod vocabulary_service_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> VocabularyServiceClient<T>
+    impl<T> OrionServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -442,7 +441,7 @@ pub mod vocabulary_service_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> VocabularyServiceClient<InterceptedService<T, F>>
+        ) -> OrionServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -455,7 +454,7 @@ pub mod vocabulary_service_client {
             <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
                 Into<StdError> + Send + Sync,
         {
-            VocabularyServiceClient::new(InterceptedService::new(inner, interceptor))
+            OrionServiceClient::new(InterceptedService::new(inner, interceptor))
         }
         /// Compress requests with the given encoding.
         ///
@@ -472,6 +471,7 @@ pub mod vocabulary_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// ------------- deal vocabulary ---------------
         /// add a new vocabulary
         pub async fn add_vocabulary(
             &mut self,
@@ -484,8 +484,7 @@ pub mod vocabulary_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/orion.VocabularyService/AddVocabulary");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/AddVocabulary");
             self.inner.unary(request.into_request(), path, codec).await
         }
         /// query vocabulary
@@ -500,8 +499,7 @@ pub mod vocabulary_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/orion.VocabularyService/QueryVocabulary");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/QueryVocabulary");
             self.inner.unary(request.into_request(), path, codec).await
         }
         /// query random vocabulary
@@ -516,81 +514,11 @@ pub mod vocabulary_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/orion.VocabularyService/QueryVocabularyRandom",
-            );
+            let path =
+                http::uri::PathAndQuery::from_static("/orion.OrionService/QueryVocabularyRandom");
             self.inner.unary(request.into_request(), path, codec).await
         }
-    }
-}
-/// Generated client implementations.
-pub mod story_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::http::Uri;
-    use tonic::codegen::*;
-    #[derive(Debug, Clone)]
-    pub struct StoryServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl StoryServiceClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> StoryServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> StoryServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
-        {
-            StoryServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
+        /// ---------------- deal story ----------------
         /// add a new story
         pub async fn add_story(
             &mut self,
@@ -603,79 +531,10 @@ pub mod story_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/orion.StoryService/AddStory");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/AddStory");
             self.inner.unary(request.into_request(), path, codec).await
         }
-    }
-}
-/// Generated client implementations.
-pub mod learn_word_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::http::Uri;
-    use tonic::codegen::*;
-    #[derive(Debug, Clone)]
-    pub struct LearnWordServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl LearnWordServiceClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> LearnWordServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> LearnWordServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
-        {
-            LearnWordServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
+        /// --------------- deal learn word ------------
         /// add a new learn word
         pub async fn add_learn_word(
             &mut self,
@@ -688,7 +547,7 @@ pub mod learn_word_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/orion.LearnWordService/AddLearnWord");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/AddLearnWord");
             self.inner.unary(request.into_request(), path, codec).await
         }
         /// query learn word
@@ -703,80 +562,10 @@ pub mod learn_word_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/orion.LearnWordService/QueryLearnWord");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/QueryLearnWord");
             self.inner.unary(request.into_request(), path, codec).await
         }
-    }
-}
-/// Generated client implementations.
-pub mod word_list_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::http::Uri;
-    use tonic::codegen::*;
-    #[derive(Debug, Clone)]
-    pub struct WordListServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl WordListServiceClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> WordListServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> WordListServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
-        {
-            WordListServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
+        /// --------------- deal word list -------------
         /// add a new word list
         pub async fn add_word_list(
             &mut self,
@@ -789,7 +578,7 @@ pub mod word_list_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/orion.WordListService/AddWordList");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/AddWordList");
             self.inner.unary(request.into_request(), path, codec).await
         }
         /// query word list
@@ -804,18 +593,19 @@ pub mod word_list_service_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/orion.WordListService/QueryWordList");
+            let path = http::uri::PathAndQuery::from_static("/orion.OrionService/QueryWordList");
             self.inner.unary(request.into_request(), path, codec).await
         }
     }
 }
 /// Generated server implementations.
-pub mod vocabulary_service_server {
+pub mod orion_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with VocabularyServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with OrionServiceServer.
     #[async_trait]
-    pub trait VocabularyService: Send + Sync + 'static {
+    pub trait OrionService: Send + Sync + 'static {
+        /// ------------- deal vocabulary ---------------
         /// add a new vocabulary
         async fn add_vocabulary(
             &self,
@@ -831,16 +621,43 @@ pub mod vocabulary_service_server {
             &self,
             request: tonic::Request<super::QueryVocabularyRandomRequest>,
         ) -> Result<tonic::Response<super::QueryVocabularyResponse>, tonic::Status>;
+        /// ---------------- deal story ----------------
+        /// add a new story
+        async fn add_story(
+            &self,
+            request: tonic::Request<super::AddStoryRequest>,
+        ) -> Result<tonic::Response<super::StoryResponse>, tonic::Status>;
+        /// --------------- deal learn word ------------
+        /// add a new learn word
+        async fn add_learn_word(
+            &self,
+            request: tonic::Request<super::AddLearnWordRequest>,
+        ) -> Result<tonic::Response<super::LearnWordResponse>, tonic::Status>;
+        /// query learn word
+        async fn query_learn_word(
+            &self,
+            request: tonic::Request<super::QueryLearnWordRequest>,
+        ) -> Result<tonic::Response<super::QueryLearnWordResponse>, tonic::Status>;
+        /// --------------- deal word list -------------
+        /// add a new word list
+        async fn add_word_list(
+            &self,
+            request: tonic::Request<super::AddWordListRequest>,
+        ) -> Result<tonic::Response<super::WordListResponse>, tonic::Status>;
+        /// query word list
+        async fn query_word_list(
+            &self,
+            request: tonic::Request<super::QueryWordListRequest>,
+        ) -> Result<tonic::Response<super::QueryWordListResponse>, tonic::Status>;
     }
-    /// The Vocabulary service definition.
     #[derive(Debug)]
-    pub struct VocabularyServiceServer<T: VocabularyService> {
+    pub struct OrionServiceServer<T: OrionService> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: VocabularyService> VocabularyServiceServer<T> {
+    impl<T: OrionService> OrionServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -871,9 +688,9 @@ pub mod vocabulary_service_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for VocabularyServiceServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for OrionServiceServer<T>
     where
-        T: VocabularyService,
+        T: OrionService,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -886,11 +703,10 @@ pub mod vocabulary_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/orion.VocabularyService/AddVocabulary" => {
+                "/orion.OrionService/AddVocabulary" => {
                     #[allow(non_camel_case_types)]
-                    struct AddVocabularySvc<T: VocabularyService>(pub Arc<T>);
-                    impl<T: VocabularyService>
-                        tonic::server::UnaryService<super::AddVocabularyRequest>
+                    struct AddVocabularySvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::AddVocabularyRequest>
                         for AddVocabularySvc<T>
                     {
                         type Response = super::VocabularyResponse;
@@ -920,11 +736,10 @@ pub mod vocabulary_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/orion.VocabularyService/QueryVocabulary" => {
+                "/orion.OrionService/QueryVocabulary" => {
                     #[allow(non_camel_case_types)]
-                    struct QueryVocabularySvc<T: VocabularyService>(pub Arc<T>);
-                    impl<T: VocabularyService>
-                        tonic::server::UnaryService<super::QueryVocabularyRequest>
+                    struct QueryVocabularySvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::QueryVocabularyRequest>
                         for QueryVocabularySvc<T>
                     {
                         type Response = super::QueryVocabularyResponse;
@@ -954,10 +769,10 @@ pub mod vocabulary_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/orion.VocabularyService/QueryVocabularyRandom" => {
+                "/orion.OrionService/QueryVocabularyRandom" => {
                     #[allow(non_camel_case_types)]
-                    struct QueryVocabularyRandomSvc<T: VocabularyService>(pub Arc<T>);
-                    impl<T: VocabularyService>
+                    struct QueryVocabularyRandomSvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService>
                         tonic::server::UnaryService<super::QueryVocabularyRandomRequest>
                         for QueryVocabularyRandomSvc<T>
                     {
@@ -989,111 +804,10 @@ pub mod vocabulary_service_server {
                     };
                     Box::pin(fut)
                 }
-                _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
-                }),
-            }
-        }
-    }
-    impl<T: VocabularyService> Clone for VocabularyServiceServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-            }
-        }
-    }
-    impl<T: VocabularyService> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(self.0.clone())
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: VocabularyService> tonic::server::NamedService for VocabularyServiceServer<T> {
-        const NAME: &'static str = "orion.VocabularyService";
-    }
-}
-/// Generated server implementations.
-pub mod story_service_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with StoryServiceServer.
-    #[async_trait]
-    pub trait StoryService: Send + Sync + 'static {
-        /// add a new story
-        async fn add_story(
-            &self,
-            request: tonic::Request<super::AddStoryRequest>,
-        ) -> Result<tonic::Response<super::StoryResponse>, tonic::Status>;
-    }
-    #[derive(Debug)]
-    pub struct StoryServiceServer<T: StoryService> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: StoryService> StoryServiceServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-            }
-        }
-        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for StoryServiceServer<T>
-    where
-        T: StoryService,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/orion.StoryService/AddStory" => {
+                "/orion.OrionService/AddStory" => {
                     #[allow(non_camel_case_types)]
-                    struct AddStorySvc<T: StoryService>(pub Arc<T>);
-                    impl<T: StoryService> tonic::server::UnaryService<super::AddStoryRequest> for AddStorySvc<T> {
+                    struct AddStorySvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::AddStoryRequest> for AddStorySvc<T> {
                         type Response = super::StoryResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -1121,117 +835,10 @@ pub mod story_service_server {
                     };
                     Box::pin(fut)
                 }
-                _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
-                }),
-            }
-        }
-    }
-    impl<T: StoryService> Clone for StoryServiceServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-            }
-        }
-    }
-    impl<T: StoryService> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(self.0.clone())
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: StoryService> tonic::server::NamedService for StoryServiceServer<T> {
-        const NAME: &'static str = "orion.StoryService";
-    }
-}
-/// Generated server implementations.
-pub mod learn_word_service_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with LearnWordServiceServer.
-    #[async_trait]
-    pub trait LearnWordService: Send + Sync + 'static {
-        /// add a new learn word
-        async fn add_learn_word(
-            &self,
-            request: tonic::Request<super::AddLearnWordRequest>,
-        ) -> Result<tonic::Response<super::LearnWordResponse>, tonic::Status>;
-        /// query learn word
-        async fn query_learn_word(
-            &self,
-            request: tonic::Request<super::QueryLearnWordRequest>,
-        ) -> Result<tonic::Response<super::QueryLearnWordResponse>, tonic::Status>;
-    }
-    #[derive(Debug)]
-    pub struct LearnWordServiceServer<T: LearnWordService> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: LearnWordService> LearnWordServiceServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-            }
-        }
-        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for LearnWordServiceServer<T>
-    where
-        T: LearnWordService,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/orion.LearnWordService/AddLearnWord" => {
+                "/orion.OrionService/AddLearnWord" => {
                     #[allow(non_camel_case_types)]
-                    struct AddLearnWordSvc<T: LearnWordService>(pub Arc<T>);
-                    impl<T: LearnWordService>
-                        tonic::server::UnaryService<super::AddLearnWordRequest>
+                    struct AddLearnWordSvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::AddLearnWordRequest>
                         for AddLearnWordSvc<T>
                     {
                         type Response = super::LearnWordResponse;
@@ -1261,11 +868,10 @@ pub mod learn_word_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/orion.LearnWordService/QueryLearnWord" => {
+                "/orion.OrionService/QueryLearnWord" => {
                     #[allow(non_camel_case_types)]
-                    struct QueryLearnWordSvc<T: LearnWordService>(pub Arc<T>);
-                    impl<T: LearnWordService>
-                        tonic::server::UnaryService<super::QueryLearnWordRequest>
+                    struct QueryLearnWordSvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::QueryLearnWordRequest>
                         for QueryLearnWordSvc<T>
                     {
                         type Response = super::QueryLearnWordResponse;
@@ -1295,118 +901,10 @@ pub mod learn_word_service_server {
                     };
                     Box::pin(fut)
                 }
-                _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
-                }),
-            }
-        }
-    }
-    impl<T: LearnWordService> Clone for LearnWordServiceServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-            }
-        }
-    }
-    impl<T: LearnWordService> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(self.0.clone())
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: LearnWordService> tonic::server::NamedService for LearnWordServiceServer<T> {
-        const NAME: &'static str = "orion.LearnWordService";
-    }
-}
-/// Generated server implementations.
-pub mod word_list_service_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with WordListServiceServer.
-    #[async_trait]
-    pub trait WordListService: Send + Sync + 'static {
-        /// add a new word list
-        async fn add_word_list(
-            &self,
-            request: tonic::Request<super::AddWordListRequest>,
-        ) -> Result<tonic::Response<super::WordListResponse>, tonic::Status>;
-        /// query word list
-        async fn query_word_list(
-            &self,
-            request: tonic::Request<super::QueryWordListRequest>,
-        ) -> Result<tonic::Response<super::QueryWordListResponse>, tonic::Status>;
-    }
-    #[derive(Debug)]
-    pub struct WordListServiceServer<T: WordListService> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: WordListService> WordListServiceServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-            }
-        }
-        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for WordListServiceServer<T>
-    where
-        T: WordListService,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/orion.WordListService/AddWordList" => {
+                "/orion.OrionService/AddWordList" => {
                     #[allow(non_camel_case_types)]
-                    struct AddWordListSvc<T: WordListService>(pub Arc<T>);
-                    impl<T: WordListService> tonic::server::UnaryService<super::AddWordListRequest>
-                        for AddWordListSvc<T>
-                    {
+                    struct AddWordListSvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::AddWordListRequest> for AddWordListSvc<T> {
                         type Response = super::WordListResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -1434,11 +932,10 @@ pub mod word_list_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/orion.WordListService/QueryWordList" => {
+                "/orion.OrionService/QueryWordList" => {
                     #[allow(non_camel_case_types)]
-                    struct QueryWordListSvc<T: WordListService>(pub Arc<T>);
-                    impl<T: WordListService>
-                        tonic::server::UnaryService<super::QueryWordListRequest>
+                    struct QueryWordListSvc<T: OrionService>(pub Arc<T>);
+                    impl<T: OrionService> tonic::server::UnaryService<super::QueryWordListRequest>
                         for QueryWordListSvc<T>
                     {
                         type Response = super::QueryWordListResponse;
@@ -1479,7 +976,7 @@ pub mod word_list_service_server {
             }
         }
     }
-    impl<T: WordListService> Clone for WordListServiceServer<T> {
+    impl<T: OrionService> Clone for OrionServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -1489,7 +986,7 @@ pub mod word_list_service_server {
             }
         }
     }
-    impl<T: WordListService> Clone for _Inner<T> {
+    impl<T: OrionService> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(self.0.clone())
         }
@@ -1499,7 +996,7 @@ pub mod word_list_service_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: WordListService> tonic::server::NamedService for WordListServiceServer<T> {
-        const NAME: &'static str = "orion.WordListService";
+    impl<T: OrionService> tonic::server::NamedService for OrionServiceServer<T> {
+        const NAME: &'static str = "orion.OrionService";
     }
 }

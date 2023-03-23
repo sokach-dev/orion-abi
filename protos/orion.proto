@@ -72,17 +72,6 @@ message QueryVocabularyRandomRequest {
     int64 limit = 1;
 }
 
-// The Vocabulary service definition.
-service VocabularyService {
-    // add a new vocabulary
-    rpc AddVocabulary(AddVocabularyRequest) returns (VocabularyResponse) {}
-    // query vocabulary
-    rpc QueryVocabulary(QueryVocabularyRequest) returns (QueryVocabularyResponse) {}
-    // query random vocabulary
-    rpc QueryVocabularyRandom(QueryVocabularyRandomRequest) returns (QueryVocabularyResponse) {}
-
-}
-
 message Story {
     /// id
     int64 id = 1;
@@ -123,11 +112,6 @@ message StoryResponse {
 
 message QueryStoryResponse {
     repeated Story story = 1;
-}
-
-service StoryService {
-    // add a new story
-    rpc AddStory(AddStoryRequest) returns (StoryResponse) {}
 }
 
 enum LearnStatus {
@@ -199,13 +183,6 @@ message QueryLearnWordResponse {
     repeated LearnWord word = 1;
 }
 
-service LearnWordService {
-    // add a new learn word
-    rpc AddLearnWord(AddLearnWordRequest) returns (LearnWordResponse) {}
-    // query learn word
-    rpc QueryLearnWord(QueryLearnWordRequest) returns (QueryLearnWordResponse) {}
-}
-
 enum WordClassification {
     CET4 = 0;
     CET6 = 1;
@@ -263,7 +240,27 @@ message QueryWordListResponse {
     repeated WordList word = 1;
 }
 
-service WordListService {
+service OrionService {
+
+    // ------------- deal vocabulary ---------------
+    // add a new vocabulary
+    rpc AddVocabulary(AddVocabularyRequest) returns (VocabularyResponse) {}
+    // query vocabulary
+    rpc QueryVocabulary(QueryVocabularyRequest) returns (QueryVocabularyResponse) {}
+    // query random vocabulary
+    rpc QueryVocabularyRandom(QueryVocabularyRandomRequest) returns (QueryVocabularyResponse) {}
+
+    // ---------------- deal story ----------------
+    // add a new story
+    rpc AddStory(AddStoryRequest) returns (StoryResponse) {}
+
+    // --------------- deal learn word ------------
+    // add a new learn word
+    rpc AddLearnWord(AddLearnWordRequest) returns (LearnWordResponse) {}
+    // query learn word
+    rpc QueryLearnWord(QueryLearnWordRequest) returns (QueryLearnWordResponse) {}
+
+    // --------------- deal word list -------------
     // add a new word list
     rpc AddWordList(AddWordListRequest) returns (WordListResponse) {}
     // query word list
