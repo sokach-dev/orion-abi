@@ -184,12 +184,12 @@ pub struct LearnWord {
     /// / learn status
     #[prost(enumeration = "LearnStatus", tag = "6")]
     pub learn_status: i32,
-    /// / last learned at
-    #[prost(message, optional, tag = "7")]
-    pub last_learned_at: ::core::option::Option<::prost_types::Timestamp>,
-    /// / next learn at
-    #[prost(message, optional, tag = "8")]
-    pub next_learn_at: ::core::option::Option<::prost_types::Timestamp>,
+    /// / last learned at 2022-02-02
+    #[prost(string, tag = "7")]
+    pub last_learned_at: ::prost::alloc::string::String,
+    /// / next learn at 2022-03-02
+    #[prost(string, tag = "8")]
+    pub next_learn_at: ::prost::alloc::string::String,
     /// / created at
     #[prost(message, optional, tag = "9")]
     pub created_at: ::core::option::Option<::prost_types::Timestamp>,
@@ -221,11 +221,11 @@ pub struct LearnWordQuery {
     #[prost(enumeration = "LearnStatus", optional, tag = "6")]
     pub learn_status: ::core::option::Option<i32>,
     /// / last learned at
-    #[prost(message, optional, tag = "7")]
-    pub last_learned_at: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(string, optional, tag = "7")]
+    pub last_learned_at: ::core::option::Option<::prost::alloc::string::String>,
     /// / next learn at
-    #[prost(message, optional, tag = "8")]
-    pub next_learn_at: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(string, optional, tag = "8")]
+    pub next_learn_at: ::core::option::Option<::prost::alloc::string::String>,
     /// / offset
     #[prost(int64, optional, tag = "9")]
     pub offset: ::core::option::Option<i64>,
@@ -270,8 +270,8 @@ pub struct WordList {
     #[prost(string, tag = "3")]
     pub paraphrase: ::prost::alloc::string::String,
     /// / word classification
-    #[prost(enumeration = "WordClassification", tag = "4")]
-    pub classification: i32,
+    #[prost(string, tag = "4")]
+    pub classification: ::prost::alloc::string::String,
     /// / created at
     #[prost(message, optional, tag = "5")]
     pub created_at: ::core::option::Option<::prost_types::Timestamp>,
@@ -294,8 +294,8 @@ pub struct WordListQuery {
     #[prost(string, optional, tag = "3")]
     pub paraphrase: ::core::option::Option<::prost::alloc::string::String>,
     /// / word classification
-    #[prost(enumeration = "WordClassification", optional, tag = "4")]
-    pub classification: ::core::option::Option<i32>,
+    #[prost(string, optional, tag = "4")]
+    pub classification: ::core::option::Option<::prost::alloc::string::String>,
     /// / offset
     #[prost(int64, optional, tag = "5")]
     pub offset: ::core::option::Option<i64>,
@@ -355,50 +355,6 @@ impl LearnStatus {
             "LEARN_STATUS_EASY" => Some(Self::Easy),
             "LEARN_STATUS_DIFFICULT" => Some(Self::Difficult),
             "LEARN_STATUS_LEARNED" => Some(Self::Learned),
-            _ => None,
-        }
-    }
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum WordClassification {
-    Cet4 = 0,
-    Cet6 = 1,
-    Junior = 2,
-    Senior = 3,
-    Graduate = 4,
-    Toefl = 5,
-    Sat = 6,
-    Unkown = 7,
-}
-impl WordClassification {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            WordClassification::Cet4 => "CET4",
-            WordClassification::Cet6 => "CET6",
-            WordClassification::Junior => "JUNIOR",
-            WordClassification::Senior => "SENIOR",
-            WordClassification::Graduate => "GRADUATE",
-            WordClassification::Toefl => "TOEFL",
-            WordClassification::Sat => "SAT",
-            WordClassification::Unkown => "UNKOWN",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "CET4" => Some(Self::Cet4),
-            "CET6" => Some(Self::Cet6),
-            "JUNIOR" => Some(Self::Junior),
-            "SENIOR" => Some(Self::Senior),
-            "GRADUATE" => Some(Self::Graduate),
-            "TOEFL" => Some(Self::Toefl),
-            "SAT" => Some(Self::Sat),
-            "UNKOWN" => Some(Self::Unkown),
             _ => None,
         }
     }

@@ -134,10 +134,10 @@ message LearnWord {
     int64 learn_count = 5;
     /// learn status
     LearnStatus learn_status = 6;
-    /// last learned at
-    google.protobuf.Timestamp last_learned_at = 7;
-    /// next learn at
-    google.protobuf.Timestamp next_learn_at = 8;
+    /// last learned at 2022-02-02
+    string last_learned_at = 7;
+    /// next learn at 2022-03-02
+    string next_learn_at = 8;
     /// created at
     google.protobuf.Timestamp created_at = 9;
     /// updated at
@@ -158,9 +158,9 @@ message LearnWordQuery {
     /// learn status
     optional LearnStatus learn_status = 6;
     /// last learned at
-    google.protobuf.Timestamp last_learned_at = 7;
+    optional string last_learned_at = 7;
     /// next learn at
-    google.protobuf.Timestamp next_learn_at = 8;
+    optional string next_learn_at = 8;
     /// offset
     optional int64 offset = 9;
     /// limit
@@ -183,17 +183,6 @@ message QueryLearnWordResponse {
     repeated LearnWord word = 1;
 }
 
-enum WordClassification {
-    CET4 = 0;
-    CET6 = 1;
-    JUNIOR = 2;
-    SENIOR = 3;
-    GRADUATE = 4;
-    TOEFL = 5;
-    SAT = 6;
-    UNKOWN = 7;
-}
-
 message WordList {
     /// id
     int64 id = 1;
@@ -202,7 +191,7 @@ message WordList {
     /// paraphrase
     string paraphrase = 3;
     /// word classification
-    WordClassification classification = 4;
+    string classification = 4;
     /// created at
     google.protobuf.Timestamp created_at = 5;
     /// updated at
@@ -217,7 +206,7 @@ message WordListQuery {
     /// paraphrase
     optional string paraphrase = 3;
     /// word classification
-    optional WordClassification classification = 4;
+    optional string classification = 4;
     /// offset
     optional int64 offset = 5;
     /// limit
